@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114548460286424556}
   m_Layer: 0
   m_Name: 3 hit
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028326925138976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 10, z: 0}
+  m_LocalPosition: {x: 8, y: 9.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e30c0a37f4e4d3ba79ebeef7645436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 3
+  crack: {fileID: 8300000, guid: 62ce2557168fe4cd88680f364b3bcf95, type: 3}
+  hitSprites:
+  - {fileID: 21300006, guid: 8a50ee3ab73a34b40b05c78147b537e3, type: 3}
+  - {fileID: 21300008, guid: 8a50ee3ab73a34b40b05c78147b537e3, type: 3}
 --- !u!212 &212918604808973252
 SpriteRenderer:
   m_ObjectHideFlags: 1
