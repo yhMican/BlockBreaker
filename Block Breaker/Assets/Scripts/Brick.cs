@@ -7,6 +7,7 @@ public class Brick : MonoBehaviour {
 	public AudioClip crack;
 	public Sprite[] hitSprites;
 	public static int breakableCount = 0;
+	public GameObject smoke;
 
 	private int timesHit;
 	private LevelManager levelManager;
@@ -24,14 +25,14 @@ public class Brick : MonoBehaviour {
 		timesHit = 0;
 		levelManager = GameObject.FindObjectOfType<LevelManager> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
-		AudioSource.PlayClipAtPoint (crack, transform.position);
+		AudioSource.PlayClipAtPoint (crack, this.transform.position, 0.8f);
 
 		if (isBreakable) {
 			HandleHits (); 
@@ -44,16 +45,28 @@ public class Brick : MonoBehaviour {
 		if (timesHit >= maxHits) {
 			--breakableCount;
 			levelManager.BrickDestroyed ();
+			PuffSmoke ();
 			Destroy (gameObject);
 		} else {
 			LoadSprites ();
 		}
 	}
 
+	void PuffSmoke() {
+		var main = smoke.GetComponent<ParticleSystem> ().main;
+		main.startColor = gameObject.GetComponent<SpriteRenderer> ().color;
+		Instantiate (smoke, gameObject.transform.position, Quaternion.identity);
+
+		/*GameObject smokePuff = Instantiate (smoke, gameObject.transform.position, Quaternion.identity);
+		var main = smokePuff.GetComponent<ParticleSystem> ().main;
+		main.startColor = gameObject.GetComponent<SpriteRenderer> ().color; */
+	}
 	void LoadSprites () {
 		int spriteIndex = timesHit - 1;
-		if (hitSprites [spriteIndex]) {
+		if (hitSprites [spriteIndex] != null) {
 			this.GetComponent<SpriteRenderer> ().sprite = hitSprites [spriteIndex];
+		} else {
+			Debug.LogError ("Brick sprite missing");
 		}
 	}
 	// TODO Remove this method once we can actually win!
